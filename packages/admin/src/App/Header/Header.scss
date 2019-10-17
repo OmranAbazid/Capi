@@ -1,0 +1,13 @@
+.Header {
+  display: flex;
+
+  .logo {
+    margin-right: 20px;
+    font-weight: bold;
+    font-size: 1rem;
+  }
+
+  .logout {
+    margin-left: auto;
+  }
+}

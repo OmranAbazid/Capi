@@ -1,0 +1,16 @@
+.Login {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  background-color: white;
+  padding-top: 164px;
+  text-align: center;
+
+  .controls {
+    max-width: 300px;
+    margin: 0 auto;
+  }
+}

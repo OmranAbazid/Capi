@@ -1,0 +1,27 @@
+.Products {
+  .ant-table-row {
+    td:hover {
+      cursor: pointer;
+    }
+  }
+
+  .header {
+    margin-bottom: 10px;
+    .ant-btn {
+      float: right;
+    }
+
+    &::after {
+      content: "";
+      clear: both;
+      display: table;
+    }
+  }
+
+  .operations {
+    white-space: nowrap;
+    button {
+      padding: 0;
+    }
+  }
+}
