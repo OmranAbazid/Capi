@@ -1,6 +1,8 @@
 .Product {
-  .quill .ql-container {
-    height: 150px;
+  .quill .ql-editor {
+    overflow-y: scroll;
+    min-height: 150px;
+    resize: vertical;
   }
 
   .imagesCard,

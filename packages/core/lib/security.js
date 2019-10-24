@@ -52,8 +52,6 @@ const checkUserScope = (requiredScope, req, res, next) => {
   // 	next();
   // } else
 
-  console.log(req.user);
-
   if (
     req.user &&
     req.user.scopes &&

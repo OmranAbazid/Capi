@@ -4,3 +4,4 @@ export { Home } from "./Home";
 export { Header } from "./Header";
 export { SideNav } from "./SideNav";
 export { Product } from "./Product";
+export { Orders } from "./Orders";

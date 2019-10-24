@@ -1,0 +1,20 @@
+.Orders {
+  .header {
+    margin-bottom: 10px;
+    .ant-btn {
+      float: right;
+    }
+
+    &::after {
+      content: "";
+      clear: both;
+      display: table;
+    }
+  }
+
+  .ant-table-row {
+    td:hover {
+      cursor: pointer;
+    }
+  }
+}

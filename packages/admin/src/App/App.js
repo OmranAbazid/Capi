@@ -7,7 +7,8 @@ import {
   SideNav,
   // Footer,
   Product,
-  Home
+  Home,
+  Orders
 } from "./";
 
 import { Layout, Empty } from "antd";
@@ -32,6 +33,7 @@ function App() {
             >
               <Switch>
                 <PrivateRoute exact path="/" component={Home} />
+                <PrivateRoute exact path="/orders" component={Orders} />
                 <PrivateRoute exact path="/product/:id" component={Product} />
                 <PrivateRoute
                   path="*"
