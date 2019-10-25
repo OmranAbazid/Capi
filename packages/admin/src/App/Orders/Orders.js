@@ -1,9 +1,8 @@
 import React from "react";
-import { getOrders, DeleteOrder } from "./service.js";
+import { getOrders } from "./service.js";
 import { Redirect } from "react-router-dom";
 
-import { Table, Button, Card } from "antd";
-import { Link } from "react-router-dom";
+import { Table, Card } from "antd";
 import "./Orders.scss";
 
 class Orders extends React.Component {
@@ -70,11 +69,6 @@ class Orders extends React.Component {
 
     return (
       <Card className="Orders">
-        <div className="header">
-          <Button type="primary">
-            <Link to="/order/new">New Order</Link>
-          </Button>
-        </div>
         <Table
           loading={loading}
           onRow={record => ({

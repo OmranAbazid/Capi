@@ -6,6 +6,12 @@ export async function getOrders() {
   return await res.json();
 }
 
+export async function getOrder(id) {
+  const res = await get(`/api/orders/${id}`);
+
+  return await res.json();
+}
+
 export async function deleteOrder(id) {
   const response = await del(`/api/orders/${id}`);
 

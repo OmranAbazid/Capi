@@ -1,24 +1,21 @@
 import React from "react";
 
 import { Layout, Menu } from "antd";
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
+import NavItem from "./NavItem";
 const { Sider } = Layout;
 
-export default withRouter(function SideNav({ location }) {
+export default function SideNav() {
   return (
     <Sider width={200} style={{ background: "#fff" }}>
-      <Menu
-        mode="inline"
-        defaultSelectedKeys={[location.pathname]}
-        style={{ height: "100%", borderRight: 0 }}
-      >
-        <Menu.Item key="/">
+      <Menu mode="inline" style={{ height: "100%", borderRight: 0 }}>
+        <NavItem activeRoutes="/">
           <Link to="/">Products</Link>
-        </Menu.Item>
-        <Menu.Item key="/orders">
+        </NavItem>
+        <NavItem activeRoutes={["/orders", "/order/*"]}>
           <Link to="/orders">Orders</Link>
-        </Menu.Item>
+        </NavItem>
       </Menu>
     </Sider>
   );
-});
+}
