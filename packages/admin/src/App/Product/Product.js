@@ -80,11 +80,11 @@ export default class Product extends Component {
     });
 
     if (newImageFileList.length) {
-      (await fetch(`/api/products/${productId}/images`, {
+      await fetch(`/api/products/${productId}/images`, {
         'method': 'POST',
         'body': formData,
         'Content-Type': 'multipart/form-data'
-      })).json();
+      })
     }
 
     imageFileList.forEach(async (id) => {
