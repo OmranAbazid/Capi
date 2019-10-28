@@ -9,7 +9,6 @@ import {
   createProduct,
   getProduct,
   updateProduct,
-  deleteProduct,
   deleteProductImage
 } from "./service";
 
@@ -19,6 +18,7 @@ export default class Product extends Component {
     name: "",
     description: "",
     fileList: [],
+    imageFileList: [],
     price: "",
     quantity: 0,
     previewImage: "",
@@ -30,10 +30,7 @@ export default class Product extends Component {
   isNew = () => this.props.match.params.id === "new";
 
   async componentDidMount() {
-    if (this.isNew()) {
-      const { id } = await createProduct();
-      this.setState({ id });
-    } else {
+    if (!this.isNew()) {
       this.setState({ isLoading: true });
       await this.loadProduct();
       this.setState({ isLoading: false });
@@ -55,19 +52,49 @@ export default class Product extends Component {
       status: "done",
       url
     }));
+    const imageFileList = fileList.map(file => file.uid);
 
     this.setState({
       name,
       description,
       fileList,
       price,
-      quantity: stock_quantity
+      quantity: stock_quantity,
+      imageFileList
     });
   };
 
   updateProduct = async () => {
-    const { name, description, price, quantity } = this.state;
-    await updateProduct(this.state.id, {
+    const { name, description, price, quantity, fileList, imageFileList, id } = this.state;
+    const prevImages = fileList.filter(file => imageFileList.includes(file.uid)).map(file => file.uid);
+    const newImageFileList = fileList.filter(file => !imageFileList.includes(file.uid));
+    let productId = id;
+    if (this.isNew()) {
+      const { id } = await createProduct();
+      productId = id;
+    }
+
+    const formData = new FormData();
+    newImageFileList.forEach(file => {
+      formData.append("files[]", file.originFileObj);
+    });
+
+    if (newImageFileList.length) {
+      (await fetch(`/api/products/${productId}/images`, {
+        'method': 'POST',
+        'body': formData,
+        'Content-Type': 'multipart/form-data'
+      })).json();
+    }
+
+    imageFileList.forEach(async (id) => {
+      // image has been removed
+      if (!prevImages.includes(id)) {
+        await deleteProductImage(productId, id);
+      }
+    });
+
+    await updateProduct(productId, {
       name,
       description,
       regular_price: price,
@@ -106,6 +133,11 @@ export default class Product extends Component {
     }
     this.setState({ fileList });
   };
+
+  handleRemove = (file) => {
+    const fileList = this.state.fileList.filter(f => f !== file);
+    this.setState({ fileList });
+  }
 
   render() {
     const {
@@ -161,13 +193,16 @@ export default class Product extends Component {
             loading={isLoading}
           >
             <Upload
-              action={`api/products/${this.state.id}/images`}
               listType="picture-card"
               fileList={fileList}
               onPreview={this.handlePreview}
               onChange={this.handleUpload}
-              onRemove={async ({ uid }) => {
-                await deleteProductImage(this.state.id, uid);
+              onRemove={this.handleRemove}
+              beforeUpload={(file) => {
+                this.setState(prev => ({
+                  fileList: [...prev.fileList, file]
+                }));
+                return false;
               }}
               multiple
             >
@@ -208,7 +243,6 @@ export default class Product extends Component {
           <Card className="stickyMenu" loading={isLoading}>
             <Button
               onClick={async () => {
-                await deleteProduct(this.state.id);
                 this.setState({ redirect: "/" });
               }}
             >
