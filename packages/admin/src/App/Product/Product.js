@@ -27,7 +27,7 @@ export default class Product extends Component {
     isLoading: false
   };
 
-  isNew = () => this.state.id === "new";
+  isNew = () => this.props.match.params.id === "new";
 
   async componentDidMount() {
     if (this.isNew()) {
