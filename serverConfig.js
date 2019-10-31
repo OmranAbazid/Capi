@@ -59,5 +59,9 @@ module.exports = {
   // used by API
   orderStartNumber: 1000,
 
-  developerMode: true
+  developerMode: true,
+
+  adminEmail: "admin@capi.com",
+  // please change this
+  adminInitialPassword: "admin"
 };
