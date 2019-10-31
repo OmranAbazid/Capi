@@ -366,11 +366,10 @@ const addUser = async db => {
       scopes: ["admin"]
     });
 
-    bcrypt.hash(settings.adminInitialPassword, 10, async (err, hashedPass) => {
-      await db.collection("customers").insertOne({
-        email: settings.adminEmail,
-        password: hashedPass
-      });
+    const hashedPass = await bcrypt.hash(settings.adminInitialPassword, 10);
+    await db.collection("customers").insertOne({
+      email: settings.adminEmail,
+      password: hashedPass
     });
 
     winston.info(`- Added token with email: ${settings.adminEmail}`);
