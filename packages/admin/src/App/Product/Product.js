@@ -4,7 +4,7 @@ import ReactQuill from "react-quill";
 import { Upload, Icon, Modal } from "antd";
 import "./Product.scss";
 import Title from "antd/lib/typography/Title";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import {
   createProduct,
   getProduct,
@@ -24,10 +24,11 @@ export default class Product extends Component {
     previewImage: "",
     previewVisible: false,
     redirect: null,
-    isLoading: false
+    isLoading: false,
+    saved: false
   };
 
-  isNew = () => this.state.id === "new";
+  isNew = () => this.props.match.params.id === "new";
 
   async componentDidMount() {
     if (this.isNew()) {
@@ -37,6 +38,12 @@ export default class Product extends Component {
       this.setState({ isLoading: true });
       await this.loadProduct();
       this.setState({ isLoading: false });
+    }
+  }
+
+  async componentWillUnmount() {
+    if (this.isNew() && !this.state.saved) {
+      await deleteProduct(this.state.id);
     }
   }
 
@@ -74,7 +81,7 @@ export default class Product extends Component {
       stock_quantity: quantity
     });
 
-    this.setState({ redirect: "/" });
+    this.setState({ saved: true, redirect: "/" });
   };
 
   handleCancel = () => this.setState({ previewVisible: false });
@@ -206,14 +213,11 @@ export default class Product extends Component {
             </Form.Item>
           </Card>
           <Card className="stickyMenu" loading={isLoading}>
-            <Button
-              onClick={async () => {
-                await deleteProduct(this.state.id);
-                this.setState({ redirect: "/" });
-              }}
-            >
-              Cancel
-            </Button>
+            <Link to='/'>
+              <Button>
+                Cancel
+              </Button>
+            </Link>
             <Button type="primary" onClick={this.updateProduct}>
               Save
             </Button>
