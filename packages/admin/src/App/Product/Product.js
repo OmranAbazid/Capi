@@ -214,7 +214,7 @@ export default class Product extends Component {
           </Card>
           <Card className="stickyMenu" loading={isLoading}>
             <Link to='/'>
-              <Button onClick={() => this.setState({ redirect: "/" })}>
+              <Button>
                 Cancel
               </Button>
             </Link>
