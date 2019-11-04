@@ -9,7 +9,7 @@ export default function SideNav() {
   return (
     <Sider width={200} style={{ background: "#fff" }}>
       <Menu mode="inline" style={{ height: "100%", borderRight: 0 }}>
-        <NavItem activeRoutes="/">
+        <NavItem activeRoutes={["/", "/product/*"]}>
           <Link to="/">Products</Link>
         </NavItem>
         <NavItem activeRoutes={["/orders", "/order/*"]}>
