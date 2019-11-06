@@ -1,5 +1,10 @@
 {
   "private": true,
+  "scripts": {
+    "start-api": "yarn workspace core start",
+    "start-admin": "yarn workspace admin start",
+    "setup": "yarn workspace core setup"
+  },
   "workspaces": [
     "packages/*"
   ]

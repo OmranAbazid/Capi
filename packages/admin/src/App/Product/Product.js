@@ -157,7 +157,7 @@ export default class Product extends Component {
             </div>
             <ReactQuill
               name="description"
-              value={description}
+              value={description || ""}
               onChange={this.handleDescriptionChange}
             />
           </Card>
@@ -213,10 +213,8 @@ export default class Product extends Component {
             </Form.Item>
           </Card>
           <Card className="stickyMenu" loading={isLoading}>
-            <Link to='/'>
-              <Button>
-                Cancel
-              </Button>
+            <Link to="/">
+              <Button>Cancel</Button>
             </Link>
             <Button type="primary" onClick={this.updateProduct}>
               Save
