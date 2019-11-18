@@ -99,7 +99,6 @@ export default class Order extends Component {
               onClick={async evt => {
                 evt.stopPropagation();
                 this.setState({ isModalOpen: true, selectedItem: id });
-                // await deleteOrderItem(this.state.id, id);
               }}
             >
               Delete
