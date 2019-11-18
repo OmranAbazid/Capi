@@ -11,9 +11,8 @@ class Products extends React.Component {
     products: { data: [] },
     loading: false,
     redirect: "",
-    isModalOpen: false,
+    isModalOpen: null,
     isDeletingProd: false,
-    selectedProd: ""
   };
 
   async componentDidMount() {
@@ -29,12 +28,11 @@ class Products extends React.Component {
   handleDeleteProd = async () => {
     this.setState({ isDeletingProd: true });
     await deleteProduct(this.state.selectedProd);
-
-    this.setState(prev => ({
-      products: { ...prev.products, data: prev.products.data.filter(prod => prod.id !== this.state.selectedProd) },
-      isModalOpen: false,
-      isDeletingProd: true
-    }));
+    await this.loadProducts();
+    this.setState({
+      isModalOpen: null,
+      isDeletingProd: false
+    });
   }
 
   onCancel = () => {
@@ -96,7 +94,7 @@ class Products extends React.Component {
               type="link"
               onClick={async evt => {
                 evt.stopPropagation();
-                this.setState({ isModalOpen: true, selectedProd: id });
+                this.setState({ isModalOpen: id });
               }}
             >
               Delete
@@ -136,7 +134,7 @@ class Products extends React.Component {
             </Button>,
           ]}
         >
-          <p>Are you sure to delete this product?</p>
+          <p>Are you sure you want to delete this product?</p>
         </Modal>
       </div>
     );
