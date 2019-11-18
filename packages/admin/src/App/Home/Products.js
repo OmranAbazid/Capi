@@ -11,7 +11,7 @@ class Products extends React.Component {
     products: { data: [] },
     loading: false,
     redirect: "",
-    isModalOpen: null,
+    selectedProd: null,
     isDeletingProd: false,
   };
 
@@ -30,17 +30,17 @@ class Products extends React.Component {
     await deleteProduct(this.state.selectedProd);
     await this.loadProducts();
     this.setState({
-      isModalOpen: null,
+      selectedProd: null,
       isDeletingProd: false
     });
   }
 
   onCancel = () => {
-    this.setState({ isModalOpen: false });
+    this.setState({ selectedProd: false });
   }
 
   render() {
-    const { products, loading, redirect, isModalOpen, isDeletingProd } = this.state;
+    const { products, loading, redirect, selectedProd, isDeletingProd } = this.state;
 
     if (redirect) return <Redirect to={redirect} />;
 
@@ -94,7 +94,7 @@ class Products extends React.Component {
               type="link"
               onClick={async evt => {
                 evt.stopPropagation();
-                this.setState({ isModalOpen: id });
+                this.setState({ selectedProd: id });
               }}
             >
               Delete
@@ -123,7 +123,7 @@ class Products extends React.Component {
         />
         <Modal
           title="Delete Product"
-          visible={isModalOpen}
+          visible={selectedProd}
           onCancel={this.onCancel}
           footer={[
             <Button key="cancel" onClick={this.onCancel}>
