@@ -12,9 +12,8 @@ export default class Order extends Component {
     shipping_address: {},
     status: "",
     isLoading: false,
-    isModalOpen: false,
+    selectedItem: null,
     isDeletingItem: false,
-    selectedItem: ""
   };
 
   async componentDidMount() {
@@ -34,16 +33,16 @@ export default class Order extends Component {
   handleDeleteItem = async () => {
     this.setState({ isDeletingItem: true });
     await deleteOrderItem(this.state.id, this.state.selectedItem);
+    await this.loadOrder();
     
-    this.setState(prev => ({
-      items: prev.items.filter(item => item.id !== this.state.selectedItem),
-      isModalOpen: false,
-      isDeletingItem: true
-    }));
+    this.setState({
+      selectedItem: false,
+      isDeletingItem: false
+    });
   }
 
   onCancel = () => {
-    this.setState({ isModalOpen: false });
+    this.setState({ selectedItem: false });
   }
 
   render() {
@@ -53,7 +52,7 @@ export default class Order extends Component {
       items,
       shipping_address,
       status,
-      isModalOpen,
+      selectedItem,
       isDeletingItem
     } = this.state;
 
@@ -98,7 +97,7 @@ export default class Order extends Component {
               type="link"
               onClick={async evt => {
                 evt.stopPropagation();
-                this.setState({ isModalOpen: true, selectedItem: id });
+                this.setState({ selectedItem: id });
               }}
             >
               Delete
@@ -147,7 +146,7 @@ export default class Order extends Component {
         </Row>
         <Modal
           title="Delete Order Item"
-          visible={isModalOpen}
+          visible={selectedItem}
           onCancel={this.onCancel}
           footer={[
             <Button key="cancel" onClick={this.onCancel}>
@@ -158,7 +157,7 @@ export default class Order extends Component {
             </Button>,
           ]}
         >
-          <p>Are you sure to delete this item?</p>
+          <p>Are you sure you want to delete this item?</p>
         </Modal>
       </div>
     );
