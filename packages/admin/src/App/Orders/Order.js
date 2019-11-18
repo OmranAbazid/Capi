@@ -148,7 +148,6 @@ export default class Order extends Component {
         <Modal
           title="Delete Order Item"
           visible={isModalOpen}
-          onOk={this.handleDeleteItem}
           onCancel={this.onCancel}
           footer={[
             <Button key="cancel" onClick={this.onCancel}>
