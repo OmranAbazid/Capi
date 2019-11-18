@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Title from "antd/lib/typography/Title";
 import { Card, Row, Col, Button, Table } from "antd";
-import { getOrder, deleteOrder } from "./service";
+import { getOrder, deleteOrderItem } from "./service";
 import "./Order.scss";
 
 export default class Order extends Component {
@@ -78,7 +78,7 @@ export default class Order extends Component {
               type="link"
               onClick={async evt => {
                 evt.stopPropagation();
-                await deleteOrder(id);
+                await deleteOrderItem(this.state.id, id);
               }}
             >
               Delete
