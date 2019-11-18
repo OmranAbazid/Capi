@@ -2,7 +2,7 @@ import React from "react";
 import { getProducts, deleteProduct } from "./service.js";
 import { Redirect } from "react-router-dom";
 
-import { Table, Avatar, Button, Divider } from "antd";
+import { Table, Avatar, Button, Divider, Modal } from "antd";
 import { Link } from "react-router-dom";
 import "./Products.scss";
 
@@ -10,7 +10,10 @@ class Products extends React.Component {
   state = {
     products: { data: [] },
     loading: false,
-    redirect: ""
+    redirect: "",
+    isModalOpen: false,
+    isDeletingProd: false,
+    selectedProd: ""
   };
 
   async componentDidMount() {
@@ -23,8 +26,23 @@ class Products extends React.Component {
     this.setState({ products, loading: false });
   };
 
+  handleDeleteProd = async () => {
+    this.setState({ isDeletingProd: true });
+    await deleteProduct(this.state.selectedProd);
+
+    this.setState(prev => ({
+      products: { ...prev.products, data: prev.products.data.filter(prod => prod.id !== this.state.selectedProd) },
+      isModalOpen: false,
+      isDeletingProd: true
+    }));
+  }
+
+  onCancel = () => {
+    this.setState({ isModalOpen: false });
+  }
+
   render() {
-    const { products, loading, redirect } = this.state;
+    const { products, loading, redirect, isModalOpen, isDeletingProd } = this.state;
 
     if (redirect) return <Redirect to={redirect} />;
 
@@ -78,8 +96,7 @@ class Products extends React.Component {
               type="link"
               onClick={async evt => {
                 evt.stopPropagation();
-                await deleteProduct(id);
-                await this.loadProducts();
+                this.setState({ isModalOpen: true, selectedProd: id });
               }}
             >
               Delete
@@ -106,6 +123,21 @@ class Products extends React.Component {
           dataSource={dataSource}
           columns={columns}
         />
+        <Modal
+          title="Delete Product"
+          visible={isModalOpen}
+          onCancel={this.onCancel}
+          footer={[
+            <Button key="cancel" onClick={this.onCancel}>
+              Cancel
+            </Button>,
+            <Button key="confirm" type="primary" loading={isDeletingProd} onClick={this.handleDeleteProd}>
+              Confirm
+            </Button>,
+          ]}
+        >
+          <p>Are you sure to delete this product?</p>
+        </Modal>
       </div>
     );
   }
