@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Title from "antd/lib/typography/Title";
-import { Card, Row, Col, Button, Table } from "antd";
+import { Card, Row, Col, Button, Table, Modal } from "antd";
 import { getOrder, deleteOrderItem } from "./service";
 import "./Order.scss";
 
@@ -11,7 +11,10 @@ export default class Order extends Component {
     items: [],
     shipping_address: {},
     status: "",
-    isLoading: false
+    isLoading: false,
+    isModalOpen: false,
+    isDeletingItem: false,
+    selectedItem: ""
   };
 
   async componentDidMount() {
@@ -28,13 +31,30 @@ export default class Order extends Component {
     this.setState({ date_created, items, shipping_address, status });
   };
 
+  handleDeleteItem = async () => {
+    this.setState({ isDeletingItem: true });
+    await deleteOrderItem(this.state.id, this.state.selectedItem);
+    
+    this.setState(prev => ({
+      items: prev.items.filter(item => item.id !== this.state.selectedItem),
+      isModalOpen: false,
+      isDeletingItem: true
+    }));
+  }
+
+  onCancel = () => {
+    this.setState({ isModalOpen: false });
+  }
+
   render() {
     const {
       isLoading,
       date_created,
       items,
       shipping_address,
-      status
+      status,
+      isModalOpen,
+      isDeletingItem
     } = this.state;
 
     const dataSource = items.map(
@@ -78,7 +98,8 @@ export default class Order extends Component {
               type="link"
               onClick={async evt => {
                 evt.stopPropagation();
-                await deleteOrderItem(this.state.id, id);
+                this.setState({ isModalOpen: true, selectedItem: id });
+                // await deleteOrderItem(this.state.id, id);
               }}
             >
               Delete
@@ -125,6 +146,22 @@ export default class Order extends Component {
             <Card title="Customer Details">col-6 col-pull-18</Card>
           </Col>
         </Row>
+        <Modal
+          title="Delete Order Item"
+          visible={isModalOpen}
+          onOk={this.handleDeleteItem}
+          onCancel={this.onCancel}
+          footer={[
+            <Button key="cancel" onClick={this.onCancel}>
+              Cancel
+            </Button>,
+            <Button key="confirm" type="primary" loading={isDeletingItem} onClick={this.handleDeleteItem}>
+              Confirm
+            </Button>,
+          ]}
+        >
+          <p>Are you sure to delete this item?</p>
+        </Modal>
       </div>
     );
   }
