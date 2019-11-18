@@ -2,15 +2,18 @@ import React from "react";
 import { getProducts, deleteProduct } from "./service.js";
 import { Redirect } from "react-router-dom";
 
-import { Table, Avatar, Button, Divider } from "antd";
+import { Table, Avatar, Button, Divider, Input } from "antd";
 import { Link } from "react-router-dom";
 import "./Products.scss";
+
+const { Search } = Input;
 
 class Products extends React.Component {
   state = {
     products: { data: [] },
     loading: false,
-    redirect: ""
+    redirect: "",
+    productList: []
   };
 
   async componentDidMount() {
@@ -20,15 +23,34 @@ class Products extends React.Component {
   loadProducts = async () => {
     this.setState({ loading: true });
     const products = await getProducts();
-    this.setState({ products, loading: false });
+    this.setState({ products, loading: false, productList: products.data });
   };
 
+  handleInputChange = (evt) => {
+    const value = evt.target.value.toLowerCase();
+    const { data } = this.state.products;
+    const found = [];
+
+    if (!value.length) {
+      this.setState({ productList: this.state.products.data });
+    }
+    else {
+      data.forEach(prod => {
+        if (prod.name.toLowerCase().includes(value) || prod.description.toLowerCase().includes(value)) {
+          found.push(prod);
+        }
+      });
+      this.setState({ productList: found });
+    }
+
+  }
+
   render() {
-    const { products, loading, redirect } = this.state;
+    const { loading, redirect, productList } = this.state;
 
     if (redirect) return <Redirect to={redirect} />;
 
-    const dataSource = products.data.map(
+    const dataSource = productList.map(
       ({ id, name, price, images, stock_status }) => ({
         key: id,
         id,
@@ -92,6 +114,11 @@ class Products extends React.Component {
     return (
       <div className="Products">
         <div className="header">
+          <Search
+            placeholder="Search product"
+            onChange={this.handleInputChange}
+            style={{ width: 200 }}
+          />
           <Button type="primary">
             <Link to="/product/new">New Product</Link>
           </Button>
