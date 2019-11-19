@@ -42,7 +42,7 @@ export default class Order extends Component {
   }
 
   onCancel = () => {
-    this.setState({ selectedItem: false });
+    this.setState({ selectedItem: null });
   }
 
   render() {
@@ -146,7 +146,7 @@ export default class Order extends Component {
         </Row>
         <Modal
           title="Delete Order Item"
-          visible={selectedItem}
+          visible={!!selectedItem}
           onCancel={this.onCancel}
           footer={[
             <Button key="cancel" onClick={this.onCancel}>
