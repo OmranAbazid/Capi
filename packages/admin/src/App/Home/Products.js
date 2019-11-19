@@ -36,7 +36,7 @@ class Products extends React.Component {
   }
 
   onCancel = () => {
-    this.setState({ selectedProd: false });
+    this.setState({ selectedProd: null });
   }
 
   render() {
@@ -123,7 +123,7 @@ class Products extends React.Component {
         />
         <Modal
           title="Delete Product"
-          visible={selectedProd}
+          visible={!!selectedProd}
           onCancel={this.onCancel}
           footer={[
             <Button key="cancel" onClick={this.onCancel}>
