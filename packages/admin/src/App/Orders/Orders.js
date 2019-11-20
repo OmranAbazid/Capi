@@ -2,14 +2,18 @@ import React from "react";
 import { getOrders } from "./service.js";
 import { Redirect } from "react-router-dom";
 
-import { Table, Card } from "antd";
+import { Table, Card, Input } from "antd";
+import { memoize } from "utils";
 import "./Orders.scss";
+
+const { Search } = Input;
 
 class Orders extends React.Component {
   state = {
     orders: { data: [] },
     loading: false,
-    redirect: ""
+    redirect: "",
+    orderList: []
   };
 
   async componentDidMount() {
@@ -19,15 +23,46 @@ class Orders extends React.Component {
   loadOrders = async () => {
     this.setState({ loading: true });
     const orders = await getOrders();
-    this.setState({ orders, loading: false });
+    this.setState({ orders, loading: false, orderList: orders.data });
   };
 
+  getResults = memoize((query) => {
+    const { data } = this.state.orders;
+    const found = [];
+
+    if (!query.length) {
+      return data;
+    }
+    else {
+      data.forEach(order => {
+        if (order.shipping_address.full_name.toLowerCase().includes(query)) {
+          found.push(order);
+        }
+        else {
+          for (const item of order.items) {
+            if (item.name.toLowerCase().includes(query)) {
+              found.push(order);
+              break;
+            }
+          }
+        }
+      });
+      return found;
+    }
+  });
+
+  handleInputChange = (evt) => {
+    this.setState({
+      orderList: this.getResults(evt.target.value.toLowerCase())
+    })
+  }
+
   render() {
-    const { orders, loading, redirect } = this.state;
+    const { loading, redirect, orderList } = this.state;
 
     if (redirect) return <Redirect to={redirect} />;
 
-    const dataSource = orders.data.map(
+    const dataSource = orderList.map(
       ({
         id,
         date_created,
@@ -69,6 +104,13 @@ class Orders extends React.Component {
 
     return (
       <Card className="Orders">
+        <div className="header">
+          <Search
+            placeholder="Search order"
+            onChange={this.handleInputChange}
+            style={{ width: 200 }}
+          />
+        </div>
         <Table
           loading={loading}
           onRow={record => ({
