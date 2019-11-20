@@ -2,18 +2,32 @@ import React from "react";
 import { getProducts, deleteProduct } from "./service.js";
 import { Redirect } from "react-router-dom";
 
-import { Table, Avatar, Button, Divider, Input } from "antd";
+import { Table, Avatar, Button, Divider, Input, Modal } from "antd";
 import { Link } from "react-router-dom";
 import "./Products.scss";
 
 const { Search } = Input;
-
+function memoize(func) {
+  const cache = new Map();
+  return function(...args) {
+      // Use first argument as key
+      const key = args[0];
+      if (cache.has(key)) {
+          return cache.get(key);
+      }
+      const val = func.apply(this, arguments);
+      cache.set(key, val);
+      return val;
+  };
+}
 class Products extends React.Component {
   state = {
     products: { data: [] },
     loading: false,
     redirect: "",
-    productList: []
+    productList: [],
+    selectedProd: null,
+    isDeletingProd: false,
   };
 
   async componentDidMount() {
@@ -26,13 +40,13 @@ class Products extends React.Component {
     this.setState({ products, loading: false, productList: products.data });
   };
 
-  handleInputChange = (evt) => {
-    const value = evt.target.value.toLowerCase();
+  getResults = memoize((query) => {
+    const value = query.toLowerCase();
     const { data } = this.state.products;
     const found = [];
 
     if (!value.length) {
-      this.setState({ productList: this.state.products.data });
+      return data;
     }
     else {
       data.forEach(prod => {
@@ -40,13 +54,32 @@ class Products extends React.Component {
           found.push(prod);
         }
       });
-      this.setState({ productList: found });
+      return found;
     }
+  });
 
+  handleInputChange = (evt) => {
+    this.setState({
+      productList: this.getResults(evt.target.value)
+    })
+  }
+
+  handleDeleteProd = async () => {
+    this.setState({ isDeletingProd: true });
+    await deleteProduct(this.state.selectedProd);
+    await this.loadProducts();
+    this.setState({
+      selectedProd: null,
+      isDeletingProd: false
+    });
+  }
+
+  onCancel = () => {
+    this.setState({ selectedProd: null });
   }
 
   render() {
-    const { loading, redirect, productList } = this.state;
+    const { loading, redirect, selectedProd, isDeletingProd, productList } = this.state;
 
     if (redirect) return <Redirect to={redirect} />;
 
@@ -100,8 +133,7 @@ class Products extends React.Component {
               type="link"
               onClick={async evt => {
                 evt.stopPropagation();
-                await deleteProduct(id);
-                await this.loadProducts();
+                this.setState({ selectedProd: id });
               }}
             >
               Delete
@@ -133,6 +165,21 @@ class Products extends React.Component {
           dataSource={dataSource}
           columns={columns}
         />
+        <Modal
+          title="Delete Product"
+          visible={!!selectedProd}
+          onCancel={this.onCancel}
+          footer={[
+            <Button key="cancel" onClick={this.onCancel}>
+              Cancel
+            </Button>,
+            <Button key="confirm" type="primary" loading={isDeletingProd} onClick={this.handleDeleteProd}>
+              Confirm
+            </Button>,
+          ]}
+        >
+          <p>Are you sure you want to delete this product?</p>
+        </Modal>
       </div>
     );
   }

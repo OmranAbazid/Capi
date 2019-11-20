@@ -17,3 +17,9 @@ export async function deleteOrder(id) {
 
   return response;
 }
+
+export async function deleteOrderItem(orderID, itemID) {
+  const response = await del(`/api/orders/${orderID}/items/${itemID}`);
+
+  return response;
+}
