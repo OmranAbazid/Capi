@@ -1,25 +1,13 @@
 import React from "react";
 import { getProducts, deleteProduct } from "./service.js";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 
 import { Table, Avatar, Button, Divider, Input, Modal } from "antd";
-import { Link } from "react-router-dom";
+import { memoize } from "utils";
 import "./Products.scss";
 
 const { Search } = Input;
-function memoize(func) {
-  const cache = new Map();
-  return function(...args) {
-      // Use first argument as key
-      const key = args[0];
-      if (cache.has(key)) {
-          return cache.get(key);
-      }
-      const val = func.apply(this, arguments);
-      cache.set(key, val);
-      return val;
-  };
-}
+
 class Products extends React.Component {
   state = {
     products: { data: [] },
@@ -41,16 +29,15 @@ class Products extends React.Component {
   };
 
   getResults = memoize((query) => {
-    const value = query.toLowerCase();
     const { data } = this.state.products;
     const found = [];
 
-    if (!value.length) {
+    if (!query.length) {
       return data;
     }
     else {
       data.forEach(prod => {
-        if (prod.name.toLowerCase().includes(value) || prod.description.toLowerCase().includes(value)) {
+        if (prod.name.toLowerCase().includes(query) || prod.description.toLowerCase().includes(query)) {
           found.push(prod);
         }
       });
@@ -60,7 +47,7 @@ class Products extends React.Component {
 
   handleInputChange = (evt) => {
     this.setState({
-      productList: this.getResults(evt.target.value)
+      productList: this.getResults(evt.target.value.toLowerCase())
     })
   }
 
