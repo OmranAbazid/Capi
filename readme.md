@@ -45,8 +45,8 @@
 
 ## Why Capi?
 
-Most of the already available ecommerce application are huge and hard to customize. Sometimes, you build an ecommerce application using woocommerce/shopify and then the customer asks for a feature that is very hard or not even possible to implement which forces you to move to another solution. Therefore, it is much easier to start with something very simple and add the features that you need along the way and that is exactly what Capi provides.
-Capi is very simple yet very powerfull ecommerce API. Developers who know JavaScript can easily understand the codebase since it is written entirly in JavaScript using the most common and proven technologies. Since themes are hard to buid, Capi is headless which means just use the API and build whatever type of store you want.
+Most of the already available e-commerce applications are huge and hard to customize. Sometimes, you build an e-commerce application using woocommerce/Shopify and then the customer asks for a feature that is very hard or not even possible to implement which forces you to move to another solution. Therefore, it is much easier to start with something very simple and add the features that you need along the way and that is exactly what Capi provides.
+Capi is a very simple yet very powerful e-commerce API. Developers who know JavaScript can easily understand the codebase since it is written entirely in JavaScript using the most common and proven technologies. Since themes are hard to build, Capi is headless which means just use the API and build whatever type of store you want.
 
 ## Features
 

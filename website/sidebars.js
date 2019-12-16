@@ -7,7 +7,7 @@
 
 module.exports = {
   docs: {
-    "Get Started": ["setup"]
-    // "API reference": ["doc1"]
+    "Get Started": ["setup"],
+    "API Reference": ["api/home", "api/Products"]
   }
 };
