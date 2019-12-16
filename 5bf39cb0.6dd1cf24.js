@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[5],{130:function(e){e.exports=JSON.parse('{"docsSidebars":{"docs":[{"type":"category","label":"Get Started","items":[{"type":"link","label":"Installation","href":"/Capi/docs/setup"}]}]},"permalinkToSidebar":{"/Capi/docs/setup":"docs"}}')}}]);
