@@ -10,7 +10,7 @@
   <h1 align="center">CAPI</h1>
 
   <p align="center">
-    CAPI is a commerce API and an admin panel to make it easy for developer to create custom ecommerce applications for any platform.
+    CAPI is a commerce API and an admin panel to make it easy for developers to create custom ecommerce applications for any platform.
     <br />
     <!-- <a href="https://github.com/OmranAbazid/Capi"><strong>Explore the docs »</strong></a>
     <br />
@@ -27,7 +27,9 @@
 
 ## Table of Contents
 
-- [About the Project](#about-the-project)
+- [About the Project](#why-capi)
+  - [Why Capi](#why-capi)
+  - [Features](#features)
   - [Built With](#built-with)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
@@ -41,7 +43,21 @@
 
 <!-- ABOUT THE PROJECT -->
 
-## About The Project
+## Why Capi?
+
+Most of the already available ecommerce application are huge and hard to customize. Sometimes, you build an ecommerce application using woocommerce/shopify and then the customer asks for a feature that is very hard or not even possible to implement which forces you to move to another solution. Therefore, it is much easier to start with something very simple and add the features that you need along the way and that is exactly what Capi provides.
+Capi is very simple yet very powerfull ecommerce API. Developers who know JavaScript can easily understand the codebase since it is written entirly in JavaScript using the most common and proven technologies. Since themes are hard to buid, Capi is headless which means just use the API and build whatever type of store you want.
+
+## Features
+
+- **Headless commerce**: Build mobile apps, customize storefronts and externalize processes
+- **Dashboard**: Administrators have good control of orders, and products
+- **Products**: Options, variants, attributes, Product categories, Inventory and stock management
+- **Cart**: Advanced payment and tax options
+- **Users**: User authentication and roles are already implemented
+- **Multivendor**: Capi can be used as a marketplace with multiple stores
+
+If you like the software, please give us a star! 🌟
 
 ![CAPI Screenshot](https://i.imgur.com/3iLsUXD.png)
 
