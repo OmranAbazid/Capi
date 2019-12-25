@@ -13,7 +13,7 @@ export default class Order extends Component {
     status: "",
     isLoading: false,
     selectedItem: null,
-    isDeletingItem: false,
+    isDeletingItem: false
   };
 
   async componentDidMount() {
@@ -34,16 +34,16 @@ export default class Order extends Component {
     this.setState({ isDeletingItem: true });
     await deleteOrderItem(this.state.id, this.state.selectedItem);
     await this.loadOrder();
-    
+
     this.setState({
       selectedItem: false,
       isDeletingItem: false
     });
-  }
+  };
 
   onCancel = () => {
     this.setState({ selectedItem: null });
-  }
+  };
 
   render() {
     const {
@@ -141,7 +141,14 @@ export default class Order extends Component {
             </Card>
           </Col>
           <Col span={7} push={1}>
-            <Card title="Customer Details">col-6 col-pull-18</Card>
+            <Card title="Customer Details">
+              <p>{shipping_address.full_name}</p>
+              <p>{shipping_address.address1}</p>
+              <p>
+                {shipping_address.city}, {shipping_address.country}
+              </p>
+              <p>{shipping_address.phone}</p>
+            </Card>
           </Col>
         </Row>
         <Modal
@@ -152,9 +159,14 @@ export default class Order extends Component {
             <Button key="cancel" onClick={this.onCancel}>
               Cancel
             </Button>,
-            <Button key="confirm" type="primary" loading={isDeletingItem} onClick={this.handleDeleteItem}>
+            <Button
+              key="confirm"
+              type="primary"
+              loading={isDeletingItem}
+              onClick={this.handleDeleteItem}
+            >
               Confirm
-            </Button>,
+            </Button>
           ]}
         >
           <p>Are you sure you want to delete this item?</p>

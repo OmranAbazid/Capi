@@ -12,7 +12,7 @@ class Products extends React.Component {
     loading: false,
     redirect: "",
     selectedProd: null,
-    isDeletingProd: false,
+    isDeletingProd: false
   };
 
   async componentDidMount() {
@@ -33,14 +33,20 @@ class Products extends React.Component {
       selectedProd: null,
       isDeletingProd: false
     });
-  }
+  };
 
   onCancel = () => {
     this.setState({ selectedProd: null });
-  }
+  };
 
   render() {
-    const { products, loading, redirect, selectedProd, isDeletingProd } = this.state;
+    const {
+      products,
+      loading,
+      redirect,
+      selectedProd,
+      isDeletingProd
+    } = this.state;
 
     if (redirect) return <Redirect to={redirect} />;
 
@@ -51,7 +57,7 @@ class Products extends React.Component {
         name,
         price: "$" + price,
         stock_status,
-        thumbnail: images[0]
+        thumbnail: images ? images[0] : null
       })
     );
 
@@ -129,9 +135,14 @@ class Products extends React.Component {
             <Button key="cancel" onClick={this.onCancel}>
               Cancel
             </Button>,
-            <Button key="confirm" type="primary" loading={isDeletingProd} onClick={this.handleDeleteProd}>
+            <Button
+              key="confirm"
+              type="primary"
+              loading={isDeletingProd}
+              onClick={this.handleDeleteProd}
+            >
               Confirm
-            </Button>,
+            </Button>
           ]}
         >
           <p>Are you sure you want to delete this product?</p>

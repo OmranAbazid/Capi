@@ -1,6 +1,6 @@
 # API Reference
 
-- [Products](./products.md)
+- [Products](./Products.md)
 - Orders
 - Order Statuses
 - Customers

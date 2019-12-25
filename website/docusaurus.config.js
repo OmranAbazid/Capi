@@ -44,8 +44,12 @@ module.exports = {
         }
       ],
       copyright: `Copyright © ${new Date().getFullYear()} CAPI, Inc. Built with Docusaurus.`
+    },
+    googleAnalytics: {
+      trackingID: "UA-155031423-1"
     }
   },
+  plugins: ["@docusaurus/plugin-google-analytics"],
   presets: [
     [
       "@docusaurus/preset-classic",
