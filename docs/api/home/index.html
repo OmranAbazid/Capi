@@ -4,8 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="generator" content="Docusaurus">
-
-<script type="text/javascript">/*<![CDATA[*/window.__chunkMapping={"17896441":["/Capi/17896441.f08cf782.js"],"main":["/Capi/main.96d3eba6.js"],"1be78505":[],"225b4c69":["/Capi/225b4c69.72533d0b.js"],"3a2cb8c6":["/Capi/3a2cb8c6.c830963b.js"],"45acc928":["/Capi/45acc928.acff2cdf.js"],"5bf39cb0":["/Capi/5bf39cb0.fad22c5b.js"],"6ad5badc":["/Capi/6ad5badc.be2ccbcc.js"],"7366bc9d":["/Capi/7366bc9d.a9042e07.js"],"864b59c4":["/Capi/864b59c4.d9844006.js"],"991b72a1":["/Capi/991b72a1.7c23f372.js"],"ece76bd1":["/Capi/ece76bd1.d8ae8aba.js"]};/*]]>*/</script>
+<link rel="preconnect" href="https://www.google-analytics.com">
+<script>
+              window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+              ga('create', 'UA-155031423-1', 'auto');
+              ga('send', 'pageview');
+            </script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+<link rel="preconnect" href="https://www.google-analytics.com">
+<script>
+              window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+              ga('create', 'UA-155031423-1', 'auto');
+              ga('send', 'pageview');
+            </script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+<script type="text/javascript">/*<![CDATA[*/window.__chunkMapping={"17896441":["/Capi/17896441.c536d775.js"],"main":["/Capi/main.bdc92257.js"],"1be78505":[],"225b4c69":["/Capi/225b4c69.28f993b4.js"],"3a2cb8c6":["/Capi/3a2cb8c6.2c11f53c.js"],"45acc928":["/Capi/45acc928.8a180637.js"],"5bf39cb0":["/Capi/5bf39cb0.aa7fd8ca.js"],"6ad5badc":["/Capi/6ad5badc.40a7ec5e.js"],"7366bc9d":["/Capi/7366bc9d.4255803e.js"],"864b59c4":["/Capi/864b59c4.2b473c21.js"],"991b72a1":["/Capi/991b72a1.b0e82608.js"],"ece76bd1":["/Capi/ece76bd1.42c3f66b.js"]};/*]]>*/</script>
 
 <title data-react-helmet="true">home</title>
 
@@ -44,21 +57,21 @@ This can be used to build the store functionality for not registered users. For 
 The second API, is basically every the whole API available for the application. This needs authentication ofcourse.</p><h3><a aria-hidden="true" tabindex="-1" class="anchor" id="authentication"></a><a aria-hidden="true" tabindex="-1" class="hash-link" href="#authentication" title="Direct link to heading">#</a>Authentication</h3><p>Authentication is done using HTTP cookies. To authenticate, send a login post request with correct email and password and pass the option to includes the credentials like the following:</p><pre class="mdxCodeBlock_iHAB"><div class="codeBlockWrapper_2QGZ"><pre class="prism-code language-undefined codeBlock_19pQ" style="color:#bfc7d5;background-color:#292d3e"><div class="token-line" style="color:#bfc7d5"><span class="token plain">await fetch(&quot;http://localhost:3001/ajax/login&quot;, {</span></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">    method: &quot;POST&quot;,</span></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">    body: {&quot;email&quot;: &quot;admin@capi.com&quot;, &quot;password&quot;: &quot;admin&quot;},</span></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">    headers: {</span></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">      &quot;Content-Type&quot;: &quot;application/json&quot;,</span></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">    },</span></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">    mode: &quot;cors&quot;,</span></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">    credentials: &quot;include&quot;</span></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">});</span></div></pre><button type="button" aria-label="Copy code to clipboard" class="copyButton_1BYj">Copy</button></div></pre><p>After that, cookies will be saved in your browser and whenever you need to send them again you with any other request, just append <code>credentials: &quot;include&quot;</code> to that request.</p></div></article><div class="margin-vert--lg"><nav class="pagination-nav"><div class="pagination-nav__item"><a class="pagination-nav__link" href="/Capi/docs/setup"><h5 class="pagination-nav__link--sublabel">Previous</h5><h4 class="pagination-nav__link--label">« <!-- -->Installation</h4></a></div><div class="pagination-nav__item pagination-nav__item--next"><a class="pagination-nav__link" href="/Capi/docs/api/Products"><h5 class="pagination-nav__link--sublabel">Next</h5><h4 class="pagination-nav__link--label">Products<!-- --> »</h4></a></div></nav></div></div></div><div class="col col--3"><div class="tableOfContents_TbNY"><ul class="contents contents__left-border"><li><a href="#overview" class="contents__link">Overview</a><ul class=""><li><a href="#authentication" class="contents__link">Authentication</a></li></ul></li></ul></div></div></div></div></div></main></div></div><footer class="footer footer--dark"><div class="container"><div class="row footer__links"><div class="col footer__col"><h4 class="footer__title">Docs</h4><ul class="footer__items"><li class="footer__item"><a class="footer__link-item" href="/Capi/docs/setup">Docs</a></li></ul></div></div><div class="text--center">Copyright © 2019 CAPI, Inc. Built with Docusaurus.</div></div></footer>
 </div>
 
-<script type="text/javascript" src="/Capi/styles.85885244.js"></script>
+<script type="text/javascript" src="/Capi/styles.b64c0768.js"></script>
 
-<script type="text/javascript" src="/Capi/runtime~main.0f0424c6.js"></script>
+<script type="text/javascript" src="/Capi/runtime~main.09d7936a.js"></script>
 
-<script type="text/javascript" src="/Capi/main.96d3eba6.js"></script>
+<script type="text/javascript" src="/Capi/main.bdc92257.js"></script>
 
-<script type="text/javascript" src="/Capi/1.432cc103.js"></script>
+<script type="text/javascript" src="/Capi/1.f5570449.js"></script>
 
-<script type="text/javascript" src="/Capi/14.7cef5ad3.js"></script>
+<script type="text/javascript" src="/Capi/14.68410b51.js"></script>
 
-<script type="text/javascript" src="/Capi/5bf39cb0.fad22c5b.js"></script>
+<script type="text/javascript" src="/Capi/5bf39cb0.aa7fd8ca.js"></script>
 
-<script type="text/javascript" src="/Capi/17896441.f08cf782.js"></script>
+<script type="text/javascript" src="/Capi/17896441.c536d775.js"></script>
 
-<script type="text/javascript" src="/Capi/6ad5badc.be2ccbcc.js"></script>
+<script type="text/javascript" src="/Capi/6ad5badc.40a7ec5e.js"></script>
 
 
 </body>
